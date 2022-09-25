@@ -42,6 +42,11 @@ function calculateCellSize(gridSize: number, columns: number) {
 function paintCell(e: Event) {
   const cell = e.target as HTMLElement;
   cell.style.backgroundColor = paintColor;
+
+  // TODOs
+  // - Convert hex from paintColor to rgb
+  // - Calculate euclidean distance with 128, 128, 128 (gray) as contrast
+  // - Change border color if contrast is less than the threshold
 }
 
 function createCells(grid: HTMLElement, columns: number, cellSize: string) {
