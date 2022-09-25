@@ -2,8 +2,9 @@ const calculateCellSize = (gridSize: number, columns: number) => {
   return `${gridSize / columns}px`;
 };
 
-const paintCell = (target: HTMLElement, color: string) => {
-  target.style.backgroundColor = color;
+const paintCell = (e: Event) => {
+  const cell = e.target as HTMLElement;
+  cell.style.backgroundColor = paintColor;
 };
 
 const createCells = (grid: HTMLElement, columns: number, cellSize: string) => {
@@ -14,9 +15,7 @@ const createCells = (grid: HTMLElement, columns: number, cellSize: string) => {
     cell.className = "grid-cell";
     cell.style.height = cellSize;
     cell.style.width = cellSize;
-    cell.addEventListener("mouseover", (e) => {
-      paintCell(e.target as HTMLElement, "black");
-    });
+    cell.addEventListener("mouseover", paintCell);
     cells.push(cell);
   }
   grid?.replaceChildren(...cells);
@@ -24,6 +23,7 @@ const createCells = (grid: HTMLElement, columns: number, cellSize: string) => {
 
 const GRID_SIZE = 640;
 const GRID_COLUMNS = 16;
+let paintColor = "black";
 
 const gridContainer = document.querySelector(
   ".grid-container"
@@ -49,10 +49,11 @@ gridResoBtns.forEach((btn) => {
 const colorPicker = document.querySelector("#color-picker");
 colorPicker?.addEventListener("change", (e) => {
   const input = e.target as HTMLInputElement;
+  paintColor = input.value;
+
   const gridCells = document.querySelectorAll(".grid-cell");
   gridCells.forEach((cell) => {
-    cell.addEventListener("mouseover", (e) => {
-      paintCell(e.target as HTMLElement, input.value);
-    });
+    cell.removeEventListener("mouseover", paintCell);
+    cell.addEventListener("mouseover", paintCell);
   });
 });
