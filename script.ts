@@ -15,7 +15,7 @@ const createCells = (grid: HTMLElement, columns: number, cellSize: string) => {
     cell.style.height = cellSize;
     cell.style.width = cellSize;
     cell.addEventListener("mouseover", (e) => {
-      paintCell(e.target as HTMLElement, "red");
+      paintCell(e.target as HTMLElement, "black");
     });
     cells.push(cell);
   }
@@ -43,5 +43,16 @@ gridResoBtns.forEach((btn) => {
       btn.getAttribute("data-resolution") ?? String(GRID_COLUMNS)
     );
     createCells(gridContainer, columns, calculateCellSize(GRID_SIZE, columns));
+  });
+});
+
+const colorPicker = document.querySelector("#color-picker");
+colorPicker?.addEventListener("change", (e) => {
+  const input = e.target as HTMLInputElement;
+  const gridCells = document.querySelectorAll(".grid-cell");
+  gridCells.forEach((cell) => {
+    cell.addEventListener("mouseover", (e) => {
+      paintCell(e.target as HTMLElement, input.value);
+    });
   });
 });
