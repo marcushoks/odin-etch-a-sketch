@@ -1,26 +1,3 @@
-const calculateCellSize = (gridSize: number, columns: number) => {
-  return `${gridSize / columns}px`;
-};
-
-const paintCell = (e: Event) => {
-  const cell = e.target as HTMLElement;
-  cell.style.backgroundColor = paintColor;
-};
-
-const createCells = (grid: HTMLElement, columns: number, cellSize: string) => {
-  grid.style.gridTemplateColumns = `repeat(${columns}, ${cellSize})`;
-  const cells = [];
-  for (let i = 0; i < columns ** 2; i++) {
-    const cell = document.createElement("div");
-    cell.className = "grid-cell";
-    cell.style.height = cellSize;
-    cell.style.width = cellSize;
-    cell.addEventListener("mouseover", paintCell);
-    cells.push(cell);
-  }
-  grid?.replaceChildren(...cells);
-};
-
 const GRID_SIZE = 640;
 const GRID_COLUMNS = 16;
 let paintColor = "black";
@@ -57,3 +34,26 @@ colorPicker?.addEventListener("change", (e) => {
     cell.addEventListener("mouseover", paintCell);
   });
 });
+
+function calculateCellSize(gridSize: number, columns: number) {
+  return `${gridSize / columns}px`;
+}
+
+function paintCell(e: Event) {
+  const cell = e.target as HTMLElement;
+  cell.style.backgroundColor = paintColor;
+}
+
+function createCells(grid: HTMLElement, columns: number, cellSize: string) {
+  grid.style.gridTemplateColumns = `repeat(${columns}, ${cellSize})`;
+  const cells = [];
+  for (let i = 0; i < columns ** 2; i++) {
+    const cell = document.createElement("div");
+    cell.className = "grid-cell";
+    cell.style.height = cellSize;
+    cell.style.width = cellSize;
+    cell.addEventListener("mouseover", paintCell);
+    cells.push(cell);
+  }
+  grid?.replaceChildren(...cells);
+}
