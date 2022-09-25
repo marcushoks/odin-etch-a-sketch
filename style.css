@@ -1,8 +1,3 @@
-:root {
-  --grid-columns: 16;
-  --cell-size: 40px;
-}
-
 body {
   background-color: #0d1117;
 }
@@ -10,13 +5,10 @@ body {
 .grid-container {
   display: grid;
   gap: 0;
-  grid-template-columns: repeat(var(--grid-columns), var(--cell-size));
 }
 
 .grid-cell {
   box-sizing: border-box;
   background-color: white;
   border: 1px solid gray;
-  height: var(--cell-size);
-  width: var(--cell-size);
 }
