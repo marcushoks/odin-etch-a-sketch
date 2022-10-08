@@ -27,12 +27,6 @@ const colorPicker = document.querySelector("#color-picker");
 colorPicker?.addEventListener("change", (e) => {
   const input = e.target as HTMLInputElement;
   paintColor = input.value;
-
-  const gridCells = document.querySelectorAll(".grid-cell");
-  gridCells.forEach((cell) => {
-    cell.removeEventListener("mouseover", paintCell);
-    cell.addEventListener("mouseover", paintCell);
-  });
 });
 
 function calculateCellSize(gridSize: number, columns: number) {
