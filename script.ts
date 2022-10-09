@@ -1,6 +1,6 @@
 const GRID_SIZE = 640;
 const GRID_COLUMNS = 16;
-let paintColor = "black";
+let paintColor = "rgb(0, 0, 0)";
 
 const gridContainer = document.querySelector(
   ".grid-container"
@@ -37,10 +37,13 @@ function paintCell(e: Event) {
   const cell = e.target as HTMLElement;
   cell.style.backgroundColor = paintColor;
 
-  // TODOs
-  // - Convert hex from paintColor to rgb
-  // - Calculate euclidean distance with 128, 128, 128 (gray) as contrast
-  // - Change border color if contrast is less than the threshold
+  // ensure sufficient contrast between the border color and background color
+  const { saturation, lightness } = rgbToHsl(cell.style.backgroundColor);
+  if (saturation <= 10 && lightness <= 90) {
+    cell.style.borderColor = "white";
+  } else {
+    cell.style.borderColor = "gray";
+  }
 }
 
 function createCells(grid: HTMLElement, columns: number, cellSize: string) {
@@ -55,4 +58,48 @@ function createCells(grid: HTMLElement, columns: number, cellSize: string) {
     cells.push(cell);
   }
   grid?.replaceChildren(...cells);
+}
+
+function rgbToHsl(rgbString: string) {
+  const matches = rgbString.match(/[0-9]+/g)?.map((match) => parseInt(match));
+  let [red, green, blue] = matches ?? [0, 0, 0];
+
+  red /= 255.0;
+  green /= 255.0;
+  blue /= 255.0;
+
+  const cMax = Math.max(red, green, blue);
+  const cMin = Math.min(red, green, blue);
+
+  // let hue = 0;
+  let sat = 0;
+  const light = (cMax + cMin) / 2;
+
+  const delta = cMax - cMin;
+  if (delta !== 0) {
+    // not achromatic
+    // switch (cMax) {
+    //   case red: {
+    //     hue = (green - blue) / delta + (green < blue ? 6 : 0);
+    //     break;
+    //   }
+    //   case green: {
+    //     hue = (blue - red) / delta + 2;
+    //     break;
+    //   }
+    //   case blue: {
+    //     hue = (red - green) / delta + 4;
+    //     break;
+    //   }
+    // }
+
+    // hue /= 6;
+    sat = light > 0.5 ? delta / (2 - cMax - cMin) : delta / (cMax + cMin);
+  }
+
+  return {
+    // hue: hue * 360,
+    saturation: sat * 100,
+    lightness: light * 100,
+  };
 }
