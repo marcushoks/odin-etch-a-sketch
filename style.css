@@ -1,3 +1,5 @@
+@import url("https://fontlibrary.org//face/minecraftia");
+
 body {
   background-color: #0d1117;
 }
@@ -11,4 +13,19 @@ body {
   box-sizing: border-box;
   background-color: white;
   border: 1px solid gray;
+}
+
+.grid-reso-btn {
+  cursor: pointer;
+  padding: 0.5em;
+  border: 0;
+  border-radius: 10px;
+  font-family: "Minecraftia", sans-serif;
+  font-size: 1.2rem;
+  color: white;
+  background-color: rgb(138, 43, 226);
+}
+
+.grid-reso-btn:hover {
+  background-color: rgba(138, 43, 226, 0.5);
 }
