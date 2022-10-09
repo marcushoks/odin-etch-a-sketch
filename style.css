@@ -1,7 +1,11 @@
 @import url("https://fontlibrary.org//face/minecraftia");
 
+:root {
+  --background-color: #0d1117;
+}
+
 body {
-  background-color: #0d1117;
+  background-color: var(--background-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,20 +22,26 @@ body {
   border: 1px solid gray;
 }
 
-.grid-reso-btn {
+button {
+  --primary-color: rgb(138, 43, 226);
+
   cursor: pointer;
-  padding: 0.5em;
+  height: 3em;
+  width: 8em;
   border: 0;
   border-radius: 10px;
   font-family: "Minecraftia", sans-serif;
   font-size: 1rem;
   white-space: nowrap;
-  color: white;
-  background-color: rgb(138, 43, 226);
+}
+
+.grid-reso-btn {
+  color: var(--background-color);
+  background-color: var(--primary-color);
 }
 
 .grid-reso-btn:hover {
-  background-color: rgba(138, 43, 226, 0.5);
+  opacity: 0.5;
 }
 
 .grid-controls {
@@ -41,4 +51,14 @@ body {
   align-items: center;
   padding: 1em;
   gap: 1em;
+}
+
+#color-picker {
+  cursor: pointer;
+}
+
+.btn--toggle {
+  border: 2px solid var(--primary-color);
+  background-color: var(--background-color);
+  color: var(--primary-color);
 }

@@ -1,6 +1,11 @@
 const GRID_SIZE = 640;
 const GRID_COLUMNS = 16;
 let paintColor = "rgb(0, 0, 0)";
+let rainbowMode = false;
+
+const root = document.documentElement;
+const backgroundColor =
+  getComputedStyle(root).getPropertyValue("--background-color");
 
 const gridContainer = document.querySelector(
   ".grid-container"
@@ -29,13 +34,33 @@ colorPicker?.addEventListener("change", (e) => {
   paintColor = input.value;
 });
 
+const rainbowButton = document.querySelector("#rainbow-btn");
+rainbowButton?.addEventListener("click", (e) => {
+  const btn = e.target as HTMLButtonElement;
+
+  rainbowMode = !rainbowMode;
+  let btnBgColor: string;
+  let btnTextColor: string;
+
+  if (rainbowMode) {
+    btnBgColor = getComputedStyle(btn).getPropertyValue("--primary-color");
+    btnTextColor = backgroundColor;
+  } else {
+    btnBgColor = backgroundColor;
+    btnTextColor = getComputedStyle(btn).getPropertyValue("--primary-color");
+  }
+
+  btn.style.backgroundColor = btnBgColor;
+  btn.style.color = btnTextColor;
+});
+
 function calculateCellSize(gridSize: number, columns: number) {
   return `${gridSize / columns}px`;
 }
 
 function paintCell(e: Event) {
   const cell = e.target as HTMLElement;
-  cell.style.backgroundColor = paintColor;
+  cell.style.backgroundColor = rainbowMode ? generateRandomRGB() : paintColor;
 
   // ensure sufficient contrast between the border color and background color
   const { saturation, lightness } = rgbToHsl(cell.style.backgroundColor);
@@ -102,4 +127,11 @@ function rgbToHsl(rgbString: string) {
     saturation: sat * 100,
     lightness: light * 100,
   };
+}
+
+function generateRandomRGB() {
+  const randomizeColor = () => {
+    return Math.floor(Math.random() * 256);
+  };
+  return `rgb(${randomizeColor()}, ${randomizeColor()}, ${randomizeColor()})`;
 }
