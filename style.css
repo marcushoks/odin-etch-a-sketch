@@ -54,7 +54,19 @@ button {
 }
 
 #color-picker {
+  appearance: none;
   cursor: pointer;
+  border: 0;
+  padding: 0;
+  height: 50px;
+  width: 50px;
+  background-color: transparent;
+}
+
+#color-picker::-webkit-color-swatch,
+#color-picker::-moz-color-swatch {
+  border-radius: 50%;
+  border: 0;
 }
 
 .btn--toggle {
