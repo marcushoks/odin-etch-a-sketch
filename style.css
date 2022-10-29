@@ -1,0 +1,76 @@
+@import url("https://fontlibrary.org//face/minecraftia");
+
+:root {
+  --background-color: #0d1117;
+}
+
+body {
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-container {
+  display: grid;
+  gap: 0;
+}
+
+.grid-cell {
+  box-sizing: border-box;
+  background-color: white;
+  border: 1px solid gray;
+}
+
+button {
+  --primary-color: rgb(138, 43, 226);
+
+  cursor: pointer;
+  height: 3em;
+  width: 8em;
+  border: 0;
+  border-radius: 10px;
+  font-family: "Minecraftia", sans-serif;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.grid-reso-btn {
+  color: var(--background-color);
+  background-color: var(--primary-color);
+}
+
+.grid-reso-btn:hover {
+  opacity: 0.5;
+}
+
+.grid-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  gap: 1em;
+}
+
+#color-picker {
+  appearance: none;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  height: 50px;
+  width: 50px;
+  background-color: transparent;
+}
+
+#color-picker::-webkit-color-swatch,
+#color-picker::-moz-color-swatch {
+  border-radius: 50%;
+  border: 0;
+}
+
+.btn--toggle {
+  border: 2px solid var(--primary-color);
+  background-color: var(--background-color);
+  color: var(--primary-color);
+}
